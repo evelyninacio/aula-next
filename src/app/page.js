@@ -30,7 +30,11 @@ export default async function Home() {
       {horario}
       <br />
 
-      <Link href="/sobre">Ir para Sobre</Link>
+      <Link href="/isr">Ir para ISR</Link>
+      <br/>
+      <Link href="/ssr">Ir para SSR</Link>
+      <br/>
+      <Link href="/csr">Ir para CSR</Link>
     </div>
   );
 }
