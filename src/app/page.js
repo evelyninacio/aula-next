@@ -1,16 +1,25 @@
 import Link from "next/link";
 
-
 // Este componente é assíncrono e roda no servidor por padrão no App Router.
 // O Next.js vai pré-renderizar esta página em tempo de build (SSG),
 // desde que o fetch seja estático (sem coisas baseadas em cookies, headers dinâmicos, etc.)
 export default async function Home() {
-  const res = await fetch(
-    "https://worldtimeapi.org/api/timezone/America/Sao_Paulo"
-  );
-  const data = await res.json();
+  // valor padrão caso a API falhe
+  let horario = "Não foi possível carregar o horário da API.";
 
-  const horario = data.datetime;
+  try {
+    const res = await fetch(
+      "https://worldtimeapi.org/api/timezone/America/Sao_Paulo"
+    );
+
+    if (res.ok) {
+      const data = await res.json();
+      horario = data.datetime;
+    }
+  } catch (error) {
+    // Tratamos o erro para não quebrar o build na Vercel
+    console.error("Erro ao buscar horário da API:", error);
+  }
 
   return (
     <div>
